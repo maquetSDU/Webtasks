@@ -1,0 +1,13 @@
+#determinant{
+  color:green;
+}#matrix{
+  display:flex;
+  width:300px;
+  flex-wrap:wrap;
+}
+#matrix input{
+  width:80px;
+}
+#result{
+  color:red;
+}
