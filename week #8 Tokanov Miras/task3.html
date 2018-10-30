@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <style>
+     #cards .card{
+    border:1px solid red;
+    display:flex;
+    width:300px;
+}
+#cards .card .title{
+    flex-grow: 1;
+}
+#cards .card .price{
+    font-weight: bold;
+    padding-right: 20px;
+}
+#loading{
+    display: none;
+}
+#cards{
+    width:300px;
+    height:200px;
+    border: 1px solid blue;
+}
+p{
+    margin: 0;
+    padding: 0;
+}
+.item span{
+    margin-right: 30px;
+    font-weight: bold;
+}
+.item{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+}
+    </style>
+
+  </head>
+
+  <body>
+    <button>Load</button>
+    <div>
+      <button id="sortByMaker">Sort by maker</button>
+      <button id="sortByPrice">Sort by price</button>
+    </div>
+    <div id="cards">
+      <img width="300px" height="200px" id="loading" src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"/>
+    </div>
+
+
+    <script>
+	let z = 
+    [{"maker":"Apple","model":"Iphone X","price":500000},
+    {"maker":"Samsung","model":"Galaxy S9","price":400000},
+    {"maker":"Xiaomi","model":"S2","price":90000},
+    {"maker":"Oppo","model":"F5","price":80000}];
+let buttontext = document.getElementsByTagName('button')[0];
+let cards = document.getElementById("cards");
+let loading = document.getElementById("loading");
+let sortByMaker = document.getElementById('sortByMaker');
+let sortByPrice = document.getElementById('sortByPrice');
+
+buttontext.addEventListener("click",function(){
+    loading.style.display = "block";
+    buttontext.textContent = "Items are loaded";
+    buttontext.disabled = true;
+    setTimeout(function(){
+        loading.style.display = "none";
+        for(let i =0;i<z.length;i++){
+            cards.innerHTML += "<div class='item'><p>" +z[i]["maker"]+ " " + z[i]["model"] +"</p><span>" + z[i]["price"] + "</span></div>";
+        }
+    },2000);
+});
+sortByMaker.addEventListener("click",function(){
+    z.sort(function(a,b){
+      if(a.maker > b.maker) {
+      return true;}
+    if(a.maker < b.maker) {
+      return false;
+    }
+    return 0});
+    cards.innerHTML = "after sorting:";
+    for(let i =0;i<z.length;i++){
+        cards.innerHTML += "<div class='item'><p>" +z[i]["maker"]+ " " + z[i]["model"] +"</p><span>" + z[i]["price"] + "</span></div>";
+    }
+});
+sortByPrice.addEventListener("click",function(){
+    z.sort(function(a,b){
+      if(a.price > b.price) {
+          return true;}
+        if(a.price < b.price) {
+          return false;
+        }
+        return 0;
+    });
+    cards.innerHTML = "after sorting:";
+    for(let i =0;i<z.length;i++){
+        cards.innerHTML += "<div class='item'><p>" +z[i]["maker"]+ " " + z[i]["model"] +"</p><span>" + z[i]["price"] + "</span></div>";
+    }
+});
+    </script>
+  </body>
+
+</html>
